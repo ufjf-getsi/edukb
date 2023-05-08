@@ -1,4 +1,4 @@
-# edukb (Educational Knowledge Base)
+# EduKB (Educational Knowledge Base)
 
 ## Modelagem do Banco de Dados de Grafos
 
