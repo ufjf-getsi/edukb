@@ -1,12 +1,12 @@
 import neo4j from "neo4j-driver";
 
 const driver = neo4j.driver(
-  process.env.NEO4J_URI,
+  "neo4j+s://be7305ae.databases.neo4j.io",
   neo4j.auth.basic(
-    process.env.NEO4J_USERNAME,
-    process.env.NEO4J_PASSWORD
+    "neo4j",
+    "yCwiHQLpoDzsduIbz5EoUCLOsvEAw8hMbIesAVFUHyc"
   )
-)
+);
 // lib/neo4j.js
 export async function read<RecordShape>(cypher: string, params?: Record<string, any>): Promise<RecordShape[]> {
   // 1. Abre uma sessão

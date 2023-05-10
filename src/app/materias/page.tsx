@@ -2,6 +2,7 @@
 import { read } from "../../../lib/neo4j";
 import Link from "next/link";
 import { Material } from "../../../types";
+import ResgisterMaterial from "../../components/RegisterMaterial";
 
 interface  MaterialRecord {
   material: Material;
@@ -24,6 +25,7 @@ export default async function MateriasPage() {
           </li>
         ))}
       </ul>
+      <ResgisterMaterial />
     </div>
   );
 }
