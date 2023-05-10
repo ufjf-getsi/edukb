@@ -28,7 +28,7 @@ main {
 }
 
 input,
-textarea {
+textarea, select{
   display: block;
   max-width: 300px;
   margin: 0.5rem 0;
