@@ -3,6 +3,7 @@ import { read } from "../../../lib/neo4j";
 import Link from "next/link";
 import { Material } from "../../../types";
 import ResgisterMaterial from "../../components/RegisterMaterial";
+import ButtonReset from "../../components/ButtonReset"
 
 interface  MaterialRecord {
   material: Material;
@@ -25,6 +26,7 @@ export default async function MateriasPage() {
           </li>
         ))}
       </ul>
+      <ButtonReset />
       <ResgisterMaterial />
     </div>
   );
