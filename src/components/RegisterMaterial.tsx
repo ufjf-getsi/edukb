@@ -70,25 +70,29 @@ export default function ResgisterMaterial() {
         placeholder="Titulo"
         value={nomeMaterial}
         onChange={(e) => setNomeMaterial(e.target.value)}
+        required
       />
       <textarea
         placeholder="Descrição"
         value={descricao}
         onChange={(e) => setDescricao(e.target.value)}
+        required
       />
       <input
         type="text"
         placeholder="Autor"
         value={nomeAutor}
         onChange={(e) => setNomeAutor(e.target.value)}
+        required
       />
       <select
         name="selectedTipoConteudo"
+        defaultValue=""
         onChange={(e) => setTipoConteudo(e.target.value)}
+        required
       >
-        <option disabled selected>
-          {" "}
-          Tipos de Conteúdo{" "}
+        <option disabled value= "">
+          Tipos de Conteúdo
         </option>
         <option value="Arquivo em Áudio">Arquivo em Áudio</option>
         <option value="Arquivo em PDF">Arquivo em PDF</option>
@@ -96,18 +100,16 @@ export default function ResgisterMaterial() {
         <option value="Link">Link</option>
         <option value="Vídeo">Vídeo</option>
       </select>
-      <select name="selectedArea" onChange={(e) => setArea(e.target.value)}>
-        <option disabled selected>
-          {" "}
-          Área da Computação{" "}
+      <select name="selectedArea" defaultValue="" onChange={(e) => setArea(e.target.value)} required>
+        <option disabled value= "" >
+          Área da Computação
         </option>
         <option value="Ciência de Dados">Ciência de Dados</option>
         <option value="Engenharia de Software">Engenharia de Software</option>
         <option value="Segurança">Segurança</option>
       </select>
-      <select name="selectedIdioma" onChange={(e) => setIdioma(e.target.value)}>
-        <option disabled selected>
-          {" "}
+      <select name="selectedIdioma" defaultValue="" onChange={(e) => setIdioma(e.target.value)} required>
+        <option disabled value= "">
           Idioma
         </option>
         <option value="Português">Português</option>
@@ -117,13 +119,14 @@ export default function ResgisterMaterial() {
         type="text"
         placeholder="Palavras-chave"
         value={palavrasChave}
-        onChange={(e) => setPalavrasChave(e.target.value)}
+        onChange={(e) => setPalavrasChave(e.target.value)}required
       />
       <select
         name="selectedTipoLicenca"
-        onChange={(e) => setTipoLicenca(e.target.value)}
+        onChange={(e) => setTipoLicenca(e.target.value)} 
+        defaultValue="" required
       >
-        <option disabled selected>
+        <option disabled value= "">
           {" "}
           Tipos de Licença
         </option>
