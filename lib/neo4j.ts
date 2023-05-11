@@ -5,10 +5,10 @@ import neo4j from "neo4j-driver";
 export async function read<RecordShape>(cypher: string, params?: Record<string, any>): Promise<RecordShape[]> {
   // 1. Abre uma sessão
   const driver = neo4j.driver(
-    "neo4j+s://be7305ae.databases.neo4j.io",
+    process.env.NEXT_PUBLIC_URI,
     neo4j.auth.basic(
-      "neo4j",
-      "yCwiHQLpoDzsduIbz5EoUCLOsvEAw8hMbIesAVFUHyc"
+      process.env.NEXT_PUBLIC_USERNAME,
+      process.env.NEXT_PUBLIC_PASSWORD
     )
   );
   const session = driver.session();
@@ -31,10 +31,10 @@ export async function read<RecordShape>(cypher: string, params?: Record<string, 
 export async function write<RecordShape>(cypher: string, params?: Record<string, any>): Promise<RecordShape[]> {
   // 1. Abre uma sessão
   const driver = neo4j.driver(
-    "neo4j+s://be7305ae.databases.neo4j.io",
+    process.env.NEXT_PUBLIC_URI,
     neo4j.auth.basic(
-      "neo4j",
-      "yCwiHQLpoDzsduIbz5EoUCLOsvEAw8hMbIesAVFUHyc"
+      process.env.NEXT_PUBLIC_USERNAME,
+      process.env.NEXT_PUBLIC_PASSWORD
     )
   );
   const session = driver.session();
