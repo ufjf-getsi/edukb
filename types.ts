@@ -1,6 +1,6 @@
 export interface Material {
     nome: string;
-    descrição: string;
+    descricao: string;
     idioma: string;
     licença_creative_commons:string;
 }
