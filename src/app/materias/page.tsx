@@ -8,7 +8,7 @@ import ButtonReset from "../../components/ButtonReset"
 interface  MaterialRecord {
   material: Material;
 }
-export async function getMaterias() {
+async function getMaterias() {
   const res = await read<MaterialRecord >(`
   MATCH (m:Material) RETURN m {.*} AS material ORDER BY m.nome ASC`);
   const materias = res.map((row) => row.material);
