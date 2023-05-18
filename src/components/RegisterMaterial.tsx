@@ -106,7 +106,7 @@ export default function ResgisterMaterial() {
         <option disabled value= "" >
           Área da Computação
         </option>
-        <option value="Ciência de Dados">Ciência de Dados</option>
+        <option value="Ciencia de Dados">Ciência de Dados</option>
         <option value="Engenharia de Software">Engenharia de Software</option>
         <option value="Segurança">Segurança</option>
       </select>

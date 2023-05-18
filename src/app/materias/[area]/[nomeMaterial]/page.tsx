@@ -1,6 +1,6 @@
 // pages/genres/index.jsx
-import { read } from "../../../../lib/neo4j";
-import { Material } from "../../../../types";
+import { read } from "../../../../../lib/neo4j";
+import { Material } from "../../../../../types";
 interface MaterialRecord {
   material: Material;
 }

@@ -5,3 +5,6 @@ export interface Material {
     licença_creative_commons:string;
     url:string;
 }
+export interface Area {
+    nome: string;
+}
