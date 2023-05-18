@@ -11,6 +11,7 @@ export default function ResgisterMaterial() {
   const [nomeMaterial, setNomeMaterial] = useState("");
   const [descricao, setDescricao] = useState("");
   const [nomeAutor, setNomeAutor] = useState("");
+  const [url, setUrl] = useState("");
   const [idioma, setIdioma] = useState("");
   const [tipoLicenca, setTipoLicenca] = useState("");
   const [tipoConteudo, setTipoConteudo] = useState("");
@@ -22,7 +23,7 @@ export default function ResgisterMaterial() {
   const resgister = async (event: any) => {
     event.preventDefault();
     const res = await write<MaterialRecord>(`// Cria o Material
-    MERGE (m1 : Material {nome: '${nomeMaterial}', descricao: '${descricao}', idioma: '${idioma}', licença_creative_commons:'${tipoLicenca}'})
+    MERGE (m1 : Material {nome: '${nomeMaterial}', descricao: '${descricao}', idioma: '${idioma}', licença_creative_commons:'${tipoLicenca}', url:'${url}'})
     
     // Cria os Autores
     MERGE (a1 : Autor {nome: '${nomeAutor}'})
@@ -56,6 +57,7 @@ export default function ResgisterMaterial() {
     setTipoLicenca("");
     setTipoConteudo("");
     setArea("");
+    setUrl("");
     setPalavrasChave("");
     //event.target.selectedTipoConteudo.selectedIndex = 0;
     event.target.reset();
@@ -133,6 +135,13 @@ export default function ResgisterMaterial() {
         <option value="CC0">CC0</option>
         <option value="	BY-SA">BY-SA</option>
       </select>
+      <input
+        type="text"
+        placeholder="URL"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        required
+      />
       <button type="submit">Cadastrar Material</button>
     </form>
   );

@@ -3,4 +3,5 @@ export interface Material {
     descricao: string;
     idioma: string;
     licença_creative_commons:string;
+    url:string;
 }

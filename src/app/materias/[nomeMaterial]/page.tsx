@@ -25,6 +25,9 @@ export default async function MaterialPage({ params }: any) {
           <h5>
             Lincença Creative Commons: {material.licença_creative_commons}
           </h5>
+          <h5>
+            URL: {material.url}
+          </h5>
         </>
       ))}
     </div>
