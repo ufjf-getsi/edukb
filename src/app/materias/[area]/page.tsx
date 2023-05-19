@@ -10,16 +10,16 @@ interface  MaterialRecord {
 }
 async function getMaterias(area :string) {
   const res = await read<MaterialRecord >(`
-  MATCH (m:Material) RETURN m {.*} AS material ORDER BY m.nome ASC`);
+  MATCH (m:Material)-[:PERTENCE_A_AREA]->(:Area {nome:'${area}'}) RETURN m {.*} AS material ORDER BY m.nome ASC`);
   const materias = res.map((row) => row.material);
-  console.log(area.replaceAll('_',' '));
   return materias;
 }
 export default async function AreaPage({ params }: any) {
-  const materias = await getMaterias(params.area);
+  const area = params.area.replaceAll('_',' ');
+  const materias = await getMaterias(area);
   return (
     <div>
-      <h1>Materias</h1>
+      <h1>Materias de {area}</h1>
       <ul>
         {materias.map((material) => (
           <li key={material.nome}>
