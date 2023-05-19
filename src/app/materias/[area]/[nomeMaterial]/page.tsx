@@ -17,7 +17,6 @@ async function getMaterial(nomeMaterial: string) {
     MATCH (m)-[:POSSUI_PALAVRAS_CHAVE]->(pc:PalavraChave)     
     RETURN m{.*} AS material, a{.*} AS autor, ar{.*} AS area, tc{.*} AS tipoConteudo, 
     pc{.*} AS palavraChave;`);
-  console.log(res);
   return res;
 }
 
@@ -25,9 +24,11 @@ export default async function MaterialPage({ params }: any) {
   const materialResult = await getMaterial(
     params.nomeMaterial.replaceAll("_", " ")
   );
+  const material: any = [];
+  material.push(materialResult.find((material) => material));
   return (
     <div>
-      {materialResult.map((material) => (
+      {material?.map((material: MaterialRecord) => (
         <>
           <h3>Titulo: {material.material.nome}</h3>
           <h5>Descrição: {material.material.descricao}</h5>
