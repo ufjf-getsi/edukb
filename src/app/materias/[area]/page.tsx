@@ -23,7 +23,7 @@ export default async function AreaPage({ params }: any) {
       <ul>
         {materias.map((material) => (
           <li key={material.nome}>
-            <Link href={`/materias/area/${material.nome}`}>{material.nome}</Link>
+            <Link href={`/materias/area/${material.nome.replaceAll(' ','_')}`}>{material.nome}</Link>
           </li>
         ))}
       </ul>

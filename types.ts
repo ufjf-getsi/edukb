@@ -8,3 +8,12 @@ export interface Material {
 export interface Area {
     nome: string;
 }
+export interface Autor {
+    nome: string;
+}
+export interface PalavraChave {
+    nome: string;
+}
+export interface TipoConteudo{
+    nome: string;
+}
