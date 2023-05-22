@@ -17,7 +17,7 @@ interface AutorRecord {
 //Busca as areas que estão no banco
 async function getArea() {
   const res = await read<AreaRecord>(`
-  MATCH (a:Area) RETURN a {.*} AS area ORDER BY a.nome ASC`);
+  MATCH (a:Area) RETURN a {id: ID(a), .*} AS area ORDER BY a.nome ASC`);
   const areas = res.map((row) => row.area);
   return areas;
 }
@@ -25,7 +25,7 @@ async function getArea() {
 //Busca as autores que estão no banco
 async function getAutor() {
   const res = await read<AutorRecord>(`
-  MATCH (a:Autor) RETURN a {.*} AS autor ORDER BY a.nome ASC`);
+  MATCH (a:Autor) RETURN a {id: ID(a), .*} AS autor ORDER BY a.nome ASC`);
   const autores = res.map((row) => row.autor);
   return autores;
 }
@@ -40,7 +40,7 @@ export default async function MateriasPage() {
       <ul>
         {autores.map((autor) => (
           <li key={autor.nome}>
-            <Link href={`/materias/autor/${autor.nome.replaceAll(" ", "_")}`}>
+            <Link href={`/materias/autor/${autor.id}`}>
               {autor.nome}
             </Link>
           </li>
@@ -50,7 +50,7 @@ export default async function MateriasPage() {
       <ul>
         {areas.map((area) => (
           <li key={area.nome}>
-            <Link href={`/materias/area/${area.nome.replaceAll(" ", "_")}`}>
+            <Link href={`/materias/area/${area.id}`}>
               {area.nome}
             </Link>
           </li>
