@@ -36,22 +36,22 @@ export default async function MateriasPage() {
   return (
     <div>
       <h1>Materias</h1>
-      <h2>Área da Computação</h2>
-      <ul>
-        {areas.map((area) => (
-          <li key={area.nome}>
-            <Link href={`/materias/area/${area.nome.replaceAll(" ", "_")}`}>
-              {area.nome}
-            </Link>
-          </li>
-        ))}
-      </ul>
       <h2>Autores</h2>
       <ul>
         {autores.map((autor) => (
           <li key={autor.nome}>
             <Link href={`/materias/autor/${autor.nome.replaceAll(" ", "_")}`}>
               {autor.nome}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <h2>Área da Computação</h2>
+      <ul>
+        {areas.map((area) => (
+          <li key={area.nome}>
+            <Link href={`/materias/area/${area.nome.replaceAll(" ", "_")}`}>
+              {area.nome}
             </Link>
           </li>
         ))}
