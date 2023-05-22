@@ -1,7 +1,5 @@
-// pages/genres/index.jsx
 import { read } from "@/../lib/neo4j";
 import { Material, Area, Autor, PalavraChave, TipoConteudo } from "@/../types";
-import { Integer } from "neo4j-driver";
 
 interface MaterialRecord {
   material: Material;
@@ -12,7 +10,7 @@ interface MaterialRecord {
 }
 
 //Busca material
-async function getMaterial(nomeMaterial: Integer) {
+async function getMaterial(nomeMaterial: Number) {
   const res = await read<MaterialRecord>(`
     MATCH (m:Material WHERE ID(m) = ${nomeMaterial})-[:POSSUI_AUTOR]->(a:Autor)
     MATCH (m)-[:PERTENCE_A_AREA]->(ar:Area)

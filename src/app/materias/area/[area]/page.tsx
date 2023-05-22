@@ -1,16 +1,15 @@
 import { read } from "@/../lib/neo4j";
 import Link from "next/link";
-import { Material } from "@/../types";
-import { Integer } from "neo4j-driver";
+import { MaterialArea } from "@/../types";
 
 interface MaterialRecord {
-  material: Material;
+  material: MaterialArea;
 }
 
 //Busca materias da area da computação
-async function getMaterias(area: Integer) {
+async function getMaterias(area: Number) {
   const res = await read<MaterialRecord>(`
-  MATCH (m:Material)-[:PERTENCE_A_AREA]->(a:Area WHERE ID(a) = ${area}) RETURN m {id: ID(m), .*} AS material ORDER BY m.nome ASC`);
+  MATCH (m:Material)-[:PERTENCE_A_AREA]->(a:Area WHERE ID(a) = ${area}) RETURN m {id: ID(m), area: a.nome, .*} AS material ORDER BY m.nome ASC`);
   const materias = res.map((row) => row.material);
   return materias;
 }
@@ -20,7 +19,7 @@ export default async function AreaPage({ params }: any) {
   const materias = await getMaterias(area);
   return (
     <div>
-      <h1>Materias de {materias[0]?.nome}</h1>
+      <h1>Materias de {materias[0]?.area}</h1>
       <ul>
         {materias.map((material) => (
           <li key={material.nome}>
