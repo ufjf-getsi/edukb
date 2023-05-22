@@ -1,6 +1,6 @@
-// pages/genres/index.jsx
 import { read } from "@/../lib/neo4j";
 import { Material, Area, Autor, PalavraChave, TipoConteudo } from "@/../types";
+
 interface MaterialRecord {
   material: Material;
   area: Area;
@@ -10,9 +10,9 @@ interface MaterialRecord {
 }
 
 //Busca material
-async function getMaterial(nomeMaterial: string) {
+async function getMaterial(nomeMaterial: Number) {
   const res = await read<MaterialRecord>(`
-    MATCH (m:Material{nome:'${nomeMaterial}'})-[:POSSUI_AUTOR]->(a:Autor)
+    MATCH (m:Material WHERE ID(m) = ${nomeMaterial})-[:POSSUI_AUTOR]->(a:Autor)
     MATCH (m)-[:PERTENCE_A_AREA]->(ar:Area)
     MATCH (m)-[:PERTENCE_A_TIPO]->(tc:TipoConteudo)
     MATCH (m)-[:POSSUI_PALAVRAS_CHAVE]->(pc:PalavraChave)     
@@ -23,12 +23,11 @@ async function getMaterial(nomeMaterial: string) {
 
 export default async function MaterialPage({ params }: any) {
   const materialResult = await getMaterial(
-    params.nomeMaterial.replaceAll("_", " ")
+    params.nomeMaterial
   );
   const material: any = [];
   //Pegar somente o primeiro material
   material.push(materialResult.find((material) => material));
-
   return (
     <div>
       {material?.map((material: MaterialRecord) => (
