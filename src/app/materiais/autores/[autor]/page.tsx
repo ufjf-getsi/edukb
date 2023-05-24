@@ -25,7 +25,7 @@ export default async function AutorPage({ params }: any) {
         {materiais.map((material) => (
           <li key={material.id.toString()}>
             <Link
-              href={`/materiais/autores/${autor}/${material.id}`}
+              href={`/materiais/${material.id}`}
             >
               {material.nome}
             </Link>
