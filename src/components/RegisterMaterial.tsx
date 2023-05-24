@@ -86,6 +86,7 @@ export default function ResgisterMaterial() {
   };
   return (
     //Formulario para cadastrar um material
+    <>
     <form onSubmit={resgister}>
       <h3>Cadastrar um Material</h3>
       <input
@@ -103,7 +104,7 @@ export default function ResgisterMaterial() {
       />
       <input
         type="text"
-        placeholder="Autores (Obs: separar os autores por vírgula (,))"
+        placeholder="Autores"
         value={nomeAutores}
         onChange={(e) => setNomeAutor(e.target.value)}
         required
@@ -115,7 +116,7 @@ export default function ResgisterMaterial() {
         required
       >
         <option disabled value="">
-          Tipos de Conteúdo
+          Tipo de Conteúdo
         </option>
         <option value="Arquivo em Áudio">Arquivo em Áudio</option>
         <option value="Arquivo em PDF">Arquivo em PDF</option>
@@ -132,7 +133,7 @@ export default function ResgisterMaterial() {
         <option disabled value="">
           Área da Computação
         </option>
-        <option value="Ciencia de Dados">Ciência de Dados</option>
+        <option value="Ciência de Dados">Ciência de Dados</option>
         <option value="Engenharia de Software">Engenharia de Software</option>
         <option value="Segurança">Segurança</option>
       </select>
@@ -177,5 +178,7 @@ export default function ResgisterMaterial() {
       />
       <button type="submit">Cadastrar Material</button>
     </form>
+    <p>Obs: separar os autores e as palavras-chaves por vírgula (,)</p>
+    </>
   );
 }
