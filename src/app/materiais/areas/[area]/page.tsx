@@ -6,25 +6,25 @@ interface MaterialRecord {
   material: MaterialArea;
 }
 
-//Busca materias da area da computação
+//Busca materiais da area da computação
 async function getMaterias(area: Number) {
   const res = await read<MaterialRecord>(`
   MATCH (m:Material)-[:PERTENCE_A_AREA]->(a:Area WHERE ID(a) = ${area}) RETURN m {id: ID(m), area: a.nome, .*} AS material ORDER BY m.nome ASC`);
-  const materias = res.map((row) => row.material);
-  return materias;
+  const materiais = res.map((row) => row.material);
+  return materiais;
 }
 
 export default async function AreaPage({ params }: any) {
   const area = params.area;
-  const materias = await getMaterias(area);
+  const materiais = await getMaterias(area);
   return (
     <div>
-      <h1>Materias de {materias[0]?.area}</h1>
+      <h1>Materias de {materiais[0]?.area}</h1>
       <ul>
-        {materias.map((material) => (
+        {materiais.map((material) => (
           <li key={material.id.toString()}>
             <Link
-              href={`/materias/area/${area}/${material.id}`}
+              href={`/materiais/areas/${area}/${material.id}`}
             >
               {material.nome}
             </Link>

@@ -35,12 +35,12 @@ export default async function MateriasPage() {
   const autores = await getAutor();
   return (
     <div>
-      <h1>Materias</h1>
+      <h1>Materiais</h1>
       <h2>Autores</h2>
       <ul>
         {autores.map((autor) => (
           <li key={autor.id.toString()}>
-            <Link href={`/materias/autor/${autor.id}`}>
+            <Link href={`/materiais/autores/${autor.id}`}>
               {autor.nome}
             </Link>
           </li>
@@ -50,7 +50,7 @@ export default async function MateriasPage() {
       <ul>
         {areas.map((area) => (
           <li key={area.id.toString()}>
-            <Link href={`/materias/area/${area.id}`}>
+            <Link href={`/materiais/areas/${area.id}`}>
               {area.nome}
             </Link>
           </li>

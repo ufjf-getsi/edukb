@@ -7,7 +7,7 @@ import { Material } from "../../types";
 interface MaterialRecord {
   material: Material;
 }
-export default function ResgisterMaterial() {
+export default function RegisterMaterial() {
   const [nomeMaterial, setNomeMaterial] = useState("");
   const [descricao, setDescricao] = useState("");
   const [nomeAutores, setNomeAutor] = useState("");
