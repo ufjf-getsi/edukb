@@ -17,31 +17,46 @@ async function getMaterial(nomeMaterial: Number) {
     MATCH (m)-[:PERTENCE_A_TIPO]->(tc:TipoConteudo)
     MATCH (m)-[:POSSUI_PALAVRAS_CHAVE]->(pc:PalavraChave)     
     RETURN m{.*} AS material, a{.*} AS autor, ar{.*} AS area, tc{.*} AS tipoConteudo, 
-    pc{.*} AS palavraChave ORDER BY a.nome ASC;`);
+    pc{.*} AS palavraChave;`);
   return res;
 }
 
 export default async function MaterialPage({ params }: any) {
-  const materialResult = await getMaterial(
-    params.nomeMaterial
-  );
+  const materialResult = await getMaterial(params.nomeMaterial);
+
+  //Trata os autores e as palavra-chaves
+  const palavrasChaves: string[] = [];
+  const autores: string[] = [];
+  materialResult.forEach((material) => {
+    if (!palavrasChaves.includes(material.palavraChave.nome)) {
+      palavrasChaves.push(material.palavraChave.nome);
+    }
+    if (!autores.includes(material.autor.nome)) {
+      autores.push(material.autor.nome);
+    }
+  });
+  palavrasChaves.sort();
+  autores.sort();
+
+  //Pega somente o primeiro material
   const material: any = [];
-  //Pegar somente o primeiro material
   material.push(materialResult.find((material) => material));
+
   return (
     <div>
       {material?.map((material: MaterialRecord) => (
         <>
           <h3>Titulo: {material?.material.nome}</h3>
           <h5>Descrição: {material?.material.descricao}</h5>
+          <h5>Autores: {autores.join(", ")}</h5>
+          <h5>Tipo de Conteúdo: {material?.tipoConteudo.nome}</h5>
+          <h5>Área da Computação: {material?.area.nome}</h5>
           <h5>Idioma: {material?.material.idioma}</h5>
+          <h5>Palavras-Chaves: {palavrasChaves.join(", ")}</h5>
           <h5>
             Lincença Creative Commons:{" "}
             {material?.material.licença_creative_commons}
           </h5>
-          {materialResult.map((autor) => (
-            <h5>Autor: {autor?.autor.nome}</h5>
-          ))}
           <h5>URL: {material?.material.url}</h5>
         </>
       ))}
