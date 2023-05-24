@@ -1,4 +1,3 @@
-// pages/genres/index.jsx
 import ButtonReset from "@/components/ButtonReset";
 import ResgisterMaterial from "@/components/RegisterMaterial";
 

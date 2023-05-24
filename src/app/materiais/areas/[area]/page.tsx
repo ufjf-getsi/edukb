@@ -19,7 +19,7 @@ export default async function AreaPage({ params }: any) {
   const materiais = await getMaterias(area);
   return (
     <div>
-      <h1>Materias de {materiais[0]?.area}</h1>
+      <h1>Materiais de {materiais[0]?.area}</h1>
       <ul>
         {materiais.map((material) => (
           <li key={material.id.toString()}>

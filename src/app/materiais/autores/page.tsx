@@ -1,4 +1,3 @@
-// pages/genres/index.jsx
 import { read } from "@/../lib/neo4j";
 import Link from "next/link";
 import { Autor } from "@/../types";
