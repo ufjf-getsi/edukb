@@ -16,28 +16,21 @@ export default function ResgisterMaterial() {
   const [tipoLicenca, setTipoLicenca] = useState("");
   const [tipoConteudo, setTipoConteudo] = useState("");
   const [area, setArea] = useState("");
-  const [palavrasChave, setPalavrasChave] = useState("");
+  const [palavrasChaves, setPalavrasChave] = useState("");
   const router = useRouter();
 
   //Envia as informação para o neo4j
   const resgister = async (event: any) => {
     event.preventDefault();
 
-    //Separar os autores
+    //Separa os autores
     const autores = nomeAutores.split(",").map((autor) => autor.trim());
 
-    //Cria query de autores
-    let queryAutores: string = "";
-    let i = 0;
-    autores.forEach(
-      (autor) =>
-        (queryAutores += `MERGE (a${i} : Autor {nome: '${autor}'}) 
-    MERGE (m1)-[: POSSUI_AUTOR]->(a${i++})
-    `)
-    );
+    //Separa as palavras-chaves
+    const palavras = palavrasChaves.split(",").map((palavra) => palavra.trim());
 
-    //Realiza o cadastro do material
-    const res = await write<MaterialRecord>(`// Cria o Material
+    //Cria query de cadastro
+    let query: string = `// Cria o Material
     MERGE (m1 : Material {nome: '${nomeMaterial}', descricao: '${descricao}', idioma: '${idioma}', licença_creative_commons:'${tipoLicenca}', url:'${url}'})
     
     // Cria o tipo de Conteúdo
@@ -46,17 +39,37 @@ export default function ResgisterMaterial() {
     // Cria a aréa
     MERGE (ar1 : Area {nome: '${area}'})
     
-    // Cria as palavras chaves
-    MERGE (ch1 : PalavraChave {nome: '${palavrasChave}'})
-    
     // Cria o relacionamento entre material e tipo de Conteúdo
     MERGE (m1)-[: PERTENCE_A_TIPO]->(t1)
     
     // Cria o relacionamento entre material e área
     MERGE (m1)-[: PERTENCE_A_AREA]->(ar1)
     
-    // Cria o relacionamento entre material e palavra chave
-    MERGE (m1)-[: POSSUI_PALAVRAS_CHAVE]->(ch1)`+queryAutores);
+    // Cria os autores e relacionamento entre material e autores
+    `;
+
+    //Adiciona os autores na query
+    let i = 0;
+    autores.forEach(
+      (autor) =>
+        (query += `MERGE (a${i} : Autor {nome: '${autor}'}) 
+    MERGE (m1)-[: POSSUI_AUTOR]->(a${i++})
+    
+    // Cria as palavras-chaves e relacionamento entre material e palavras-chaves
+    `)
+    );
+
+    //Adiciona as palavras-chaves na query
+    i = 0;
+    palavras.forEach(
+      (palavra) =>
+        (query += `MERGE (ch${i} : PalavraChave {nome: '${palavra}'})
+            MERGE (m1)-[: POSSUI_PALAVRAS_CHAVE]->(ch${i++})
+        `)
+    );
+
+    //Realiza o cadastro do material
+    const res = await write<MaterialRecord>(query);
     setNomeMaterial("");
     setArea("");
     setDescricao("");
@@ -90,7 +103,7 @@ export default function ResgisterMaterial() {
       />
       <input
         type="text"
-        placeholder="Autor"
+        placeholder="Autores (Obs: separar os autores por vírgula (,))"
         value={nomeAutores}
         onChange={(e) => setNomeAutor(e.target.value)}
         required
@@ -138,7 +151,7 @@ export default function ResgisterMaterial() {
       <input
         type="text"
         placeholder="Palavras-chave"
-        value={palavrasChave}
+        value={palavrasChaves}
         onChange={(e) => setPalavrasChave(e.target.value)}
         required
       />

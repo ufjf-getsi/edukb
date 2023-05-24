@@ -39,7 +39,7 @@ export default async function MateriasPage() {
       <h2>Autores</h2>
       <ul>
         {autores.map((autor) => (
-          <li key={autor.nome}>
+          <li key={autor.id.toString()}>
             <Link href={`/materias/autor/${autor.id}`}>
               {autor.nome}
             </Link>
@@ -49,7 +49,7 @@ export default async function MateriasPage() {
       <h2>Área da Computação</h2>
       <ul>
         {areas.map((area) => (
-          <li key={area.nome}>
+          <li key={area.id.toString()}>
             <Link href={`/materias/area/${area.id}`}>
               {area.nome}
             </Link>
