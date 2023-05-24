@@ -24,7 +24,7 @@ export default async function AreaPage({ params }: any) {
         {materiais.map((material) => (
           <li key={material.id.toString()}>
             <Link
-              href={`/materiais/areas/${area}/${material.id}`}
+              href={`/materiais/${material.id}`}
             >
               {material.nome}
             </Link>
