@@ -10,7 +10,7 @@ interface MaterialRecord {
 export default function ResgisterMaterial() {
   const [nomeMaterial, setNomeMaterial] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [nomeAutor, setNomeAutor] = useState("");
+  const [nomeAutores, setNomeAutor] = useState("");
   const [url, setUrl] = useState("");
   const [idioma, setIdioma] = useState("");
   const [tipoLicenca, setTipoLicenca] = useState("");
@@ -22,11 +22,23 @@ export default function ResgisterMaterial() {
   //Envia as informação para o neo4j
   const resgister = async (event: any) => {
     event.preventDefault();
+
+    //Separar os autores
+    const autores = nomeAutores.split(",").map((autor) => autor.trim());
+
+    //Cria query de autores
+    let queryAutores: string = "";
+    let i = 0;
+    autores.forEach(
+      (autor) =>
+        (queryAutores += `MERGE (a${i} : Autor {nome: '${autor}'}) 
+    MERGE (m1)-[: POSSUI_AUTOR]->(a${i++})
+    `)
+    );
+
+    //Realiza o cadastro do material
     const res = await write<MaterialRecord>(`// Cria o Material
     MERGE (m1 : Material {nome: '${nomeMaterial}', descricao: '${descricao}', idioma: '${idioma}', licença_creative_commons:'${tipoLicenca}', url:'${url}'})
-    
-    // Cria os Autores
-    MERGE (a1 : Autor {nome: '${nomeAutor}'})
     
     // Cria o tipo de Conteúdo
     MERGE (t1 : TipoConteudo {nome: '${tipoConteudo}'})
@@ -37,10 +49,6 @@ export default function ResgisterMaterial() {
     // Cria as palavras chaves
     MERGE (ch1 : PalavraChave {nome: '${palavrasChave}'})
     
-    // Cria os relacionamentos entre material e autores
-    MERGE (m1)-[: POSSUI_AUTOR]->(a1)
-    MERGE (m1)-[: POSSUI_AUTOR]->(a2)
-    
     // Cria o relacionamento entre material e tipo de Conteúdo
     MERGE (m1)-[: PERTENCE_A_TIPO]->(t1)
     
@@ -48,7 +56,7 @@ export default function ResgisterMaterial() {
     MERGE (m1)-[: PERTENCE_A_AREA]->(ar1)
     
     // Cria o relacionamento entre material e palavra chave
-    MERGE (m1)-[: POSSUI_PALAVRAS_CHAVE]->(ch1)`);
+    MERGE (m1)-[: POSSUI_PALAVRAS_CHAVE]->(ch1)`+queryAutores);
     setNomeMaterial("");
     setArea("");
     setDescricao("");
@@ -83,7 +91,7 @@ export default function ResgisterMaterial() {
       <input
         type="text"
         placeholder="Autor"
-        value={nomeAutor}
+        value={nomeAutores}
         onChange={(e) => setNomeAutor(e.target.value)}
         required
       />
@@ -93,7 +101,7 @@ export default function ResgisterMaterial() {
         onChange={(e) => setTipoConteudo(e.target.value)}
         required
       >
-        <option disabled value= "">
+        <option disabled value="">
           Tipos de Conteúdo
         </option>
         <option value="Arquivo em Áudio">Arquivo em Áudio</option>
@@ -102,16 +110,26 @@ export default function ResgisterMaterial() {
         <option value="Link">Link</option>
         <option value="Vídeo">Vídeo</option>
       </select>
-      <select name="selectedArea" defaultValue="" onChange={(e) => setArea(e.target.value)} required>
-        <option disabled value= "" >
+      <select
+        name="selectedArea"
+        defaultValue=""
+        onChange={(e) => setArea(e.target.value)}
+        required
+      >
+        <option disabled value="">
           Área da Computação
         </option>
         <option value="Ciencia de Dados">Ciência de Dados</option>
         <option value="Engenharia de Software">Engenharia de Software</option>
         <option value="Segurança">Segurança</option>
       </select>
-      <select name="selectedIdioma" defaultValue="" onChange={(e) => setIdioma(e.target.value)} required>
-        <option disabled value= "">
+      <select
+        name="selectedIdioma"
+        defaultValue=""
+        onChange={(e) => setIdioma(e.target.value)}
+        required
+      >
+        <option disabled value="">
           Idioma
         </option>
         <option value="Português">Português</option>
@@ -121,14 +139,16 @@ export default function ResgisterMaterial() {
         type="text"
         placeholder="Palavras-chave"
         value={palavrasChave}
-        onChange={(e) => setPalavrasChave(e.target.value)}required
+        onChange={(e) => setPalavrasChave(e.target.value)}
+        required
       />
       <select
         name="selectedTipoLicenca"
-        onChange={(e) => setTipoLicenca(e.target.value)} 
-        defaultValue="" required
+        onChange={(e) => setTipoLicenca(e.target.value)}
+        defaultValue=""
+        required
       >
-        <option disabled value= "">
+        <option disabled value="">
           {" "}
           Tipos de Licença
         </option>

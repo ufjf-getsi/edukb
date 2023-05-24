@@ -17,7 +17,7 @@ async function getMaterial(nomeMaterial: Number) {
     MATCH (m)-[:PERTENCE_A_TIPO]->(tc:TipoConteudo)
     MATCH (m)-[:POSSUI_PALAVRAS_CHAVE]->(pc:PalavraChave)     
     RETURN m{.*} AS material, a{.*} AS autor, ar{.*} AS area, tc{.*} AS tipoConteudo, 
-    pc{.*} AS palavraChave;`);
+    pc{.*} AS palavraChave ORDER BY a.nome ASC;`);
   return res;
 }
 
