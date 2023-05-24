@@ -17,7 +17,7 @@ export default function RootLayout({
         <main>
           <nav>
             <Link href="/">Home</Link>
-            <Link href="/cadastro">Cadastro</Link>
+            <Link href="/materiais/cadastro">Cadastro</Link>
             <Link href="/materiais">Materiais</Link>
             <Link href="/materiais/autores">Por autor</Link>
             <Link href="/materiais/areas">Por área</Link>
