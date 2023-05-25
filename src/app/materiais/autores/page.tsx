@@ -18,7 +18,7 @@ export default async function MateriasPage() {
   const autores = await getAutor();
   return (
     <div>
-      <h1>Materiais por Autores</h1>
+      <h1>Materiais por Autor</h1>
       <ul>
         {autores.map((autor) => (
           <li key={autor.id.toString()}>

@@ -31,7 +31,7 @@ export default function RegisterMaterial() {
 
     //Cria query de cadastro
     let query: string = `// Cria o Material
-    MERGE (m1 : Material {nome: '${nomeMaterial}', descricao: '${descricao}', idioma: '${idioma}', licença_creative_commons:'${tipoLicenca}', url:'${url}'})
+    MERGE (m1 : Material {nome: '${nomeMaterial}', descricao: '${descricao}', idioma: '${idioma}', licença_creative_commons:'${tipoLicenca}', url:'${url}', n_downloads: 0})
     
     // Cria o tipo de Conteúdo
     MERGE (t1 : TipoConteudo {nome: '${tipoConteudo}'})
@@ -88,7 +88,6 @@ export default function RegisterMaterial() {
     //Formulario para cadastrar um material
     <>
     <form onSubmit={resgister}>
-      <h3>Cadastrar um Material</h3>
       <input
         type="text"
         placeholder="Titulo"
