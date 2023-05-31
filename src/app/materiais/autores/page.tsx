@@ -1,6 +1,7 @@
 import { read } from "@/../lib/neo4j";
 import Link from "next/link";
 import { Autor } from "@/../types";
+export const dynamic='force-dynamic' //Força a página ser dinâmica
 
 interface AutorRecord {
   autor: Autor;
