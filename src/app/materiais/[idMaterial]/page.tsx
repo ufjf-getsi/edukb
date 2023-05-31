@@ -10,9 +10,9 @@ interface MaterialRecord {
 }
 
 //Busca material
-async function getMaterial(nomeMaterial: Number) {
+async function getMaterial(idMaterial: Number) {
   const res = await read<MaterialRecord>(`
-    MATCH (m:Material WHERE ID(m) = ${nomeMaterial})-[:POSSUI_AUTOR]->(a:Autor)
+    MATCH (m:Material WHERE ID(m) = ${idMaterial})-[:POSSUI_AUTOR]->(a:Autor)
     MATCH (m)-[:PERTENCE_A_AREA]->(ar:Area)
     MATCH (m)-[:PERTENCE_A_TIPO]->(tc:TipoConteudo)
     MATCH (m)-[:POSSUI_PALAVRAS_CHAVE]->(pc:PalavraChave)     
@@ -48,7 +48,7 @@ export default async function MaterialPage({ params }: any) {
         <>
           <h3>Titulo: {material?.material.nome}</h3>
           <h5>Descrição: {material?.material.descricao}</h5>
-          <h5>Autores: {autores.join(", ")}</h5>
+          <h5>Autor(es): {autores.join(", ")}</h5>
           <h5>Tipo de Conteúdo: {material?.tipoConteudo.nome}</h5>
           <h5>Área da Computação: {material?.area.nome}</h5>
           <h5>Idioma: {material?.material.idioma}</h5>

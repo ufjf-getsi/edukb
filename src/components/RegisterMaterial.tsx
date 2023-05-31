@@ -103,7 +103,7 @@ export default function RegisterMaterial() {
       />
       <input
         type="text"
-        placeholder="Autores"
+        placeholder="Autor(es)"
         value={nomeAutores}
         onChange={(e) => setNomeAutor(e.target.value)}
         required
@@ -122,6 +122,7 @@ export default function RegisterMaterial() {
         <option value="Arquivo de Texto">Arquivo de Texto</option>
         <option value="Link">Link</option>
         <option value="Vídeo">Vídeo</option>
+        <option value="Outro">Outro</option>
       </select>
       <select
         name="selectedArea"
@@ -134,6 +135,7 @@ export default function RegisterMaterial() {
         </option>
         <option value="Ciência de Dados">Ciência de Dados</option>
         <option value="Engenharia de Software">Engenharia de Software</option>
+        <option value="Multidisciplinar">Multidisciplinar</option>
         <option value="Segurança">Segurança</option>
       </select>
       <select
@@ -165,8 +167,10 @@ export default function RegisterMaterial() {
           {" "}
           Tipos de Licença
         </option>
-        <option value="CC0">CC0</option>
         <option value="	BY-SA">BY-SA</option>
+        <option value="CC BY NC SA">CC BY NC SA</option>
+        <option value="CC BY SA">CC BY SA</option>
+        <option value="CC0">CC0</option>
       </select>
       <input
         type="text"
