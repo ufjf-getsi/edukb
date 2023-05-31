@@ -1,12 +1,13 @@
 import { read } from "@/../lib/neo4j";
 import Link from "next/link";
 import { Area } from "@/../types";
+export const dynamic='force-dynamic' //Força a página ser dinâmica
 
 interface AreaRecord {
   area: Area;
 }
 
-//Busca as areas que estão no banco
+//Busca as áreas que estão no banco
 async function getArea() {
   const res = await read<AreaRecord>(`
   MATCH (a:Area) RETURN a {id: ID(a), .*} AS area ORDER BY a.nome ASC`);
