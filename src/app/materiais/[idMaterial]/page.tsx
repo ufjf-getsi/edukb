@@ -22,7 +22,7 @@ async function getMaterial(nomeMaterial: Number) {
 }
 
 export default async function MaterialPage({ params }: any) {
-  const materialResult = await getMaterial(params.nomeMaterial);
+  const materialResult = await getMaterial(params.idMaterial);
 
   //Trata os autores e as palavra-chaves
   const palavrasChaves: string[] = [];
