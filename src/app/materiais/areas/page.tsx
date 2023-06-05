@@ -1,17 +1,12 @@
 import { read } from "@/../lib/neo4j";
 import Link from "next/link";
 import { Area } from "@/../types";
-export const dynamic='force-dynamic' //Força a página ser dinâmica
-
-interface AreaRecord {
-  area: Area;
-}
+export const dynamic = "force-dynamic"; //Força a página ser dinâmica
 
 //Busca as áreas que estão no banco
 async function getArea() {
-  const res = await read<AreaRecord>(`
-  MATCH (a:Area) RETURN a {id: ID(a), .*} AS area ORDER BY a.nome ASC`);
-  const areas = res.map((row) => row.area);
+  const areas = await read<Area>(`
+  MATCH (m:Material)-[:PERTENCE_A_AREA]->(area:Area) RETURN ID(area) as id, area.nome AS nome, COUNT (m.nome) AS nMateriais ORDER BY nome ASC`);
   return areas;
 }
 
@@ -24,7 +19,8 @@ export default async function AreasPage() {
         {areas.map((area) => (
           <li key={area.id.toString()}>
             <Link href={`/materiais/areas/${area.id}`}>
-              {area.nome}
+              {area.nome} | Quantidade de materiais:{" "}
+              {area.nMateriais.toString()}
             </Link>
           </li>
         ))}

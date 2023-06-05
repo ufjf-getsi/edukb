@@ -10,6 +10,7 @@ export interface Material {
 export interface Area {
   id: Number;
   nome: string;
+  nMateriais: Number;
 }
 export interface Autor {
   id: Number;
