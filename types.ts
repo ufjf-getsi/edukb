@@ -1,6 +1,6 @@
 
 export interface Material {
-  id: Number;
+  id: number;
   nome: string;
   descricao: string;
   idioma: string;
@@ -8,25 +8,25 @@ export interface Material {
   url: string;
 }
 export interface Area {
-  id: Number;
+  id: number;
   nome: string;
   nMateriais: Number;
 }
 export interface Autor {
-  id: Number;
+  id: number;
   nome: string;
-  nMateriais: Number;
+  nMateriais: number;
 }
 export interface PalavraChave {
-  id: Number;
+  id: number;
   nome: string;
 }
 export interface TipoConteudo {
-  id: Number;
+  id: number;
   nome: string;
 }
 export interface MaterialArea {
-  id: Number;
+  id: number;
   nome: string;
   descricao: string;
   idioma: string;
@@ -35,7 +35,7 @@ export interface MaterialArea {
   area: string;
 }
 export interface MaterialAutor {
-  id: Number;
+  id: number;
   nome: string;
   descricao: string;
   idioma: string;
