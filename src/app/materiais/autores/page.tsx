@@ -1,17 +1,12 @@
 import { read } from "@/../lib/neo4j";
 import Link from "next/link";
 import { Autor } from "@/../types";
-export const dynamic='force-dynamic' //Força a página ser dinâmica
-
-interface AutorRecord {
-  autor: Autor;
-}
+export const dynamic = "force-dynamic"; //Força a página ser dinâmica
 
 //Busca as autores que estão no banco
 async function getAutor() {
-  const res = await read<AutorRecord>(`
-  MATCH (a:Autor) RETURN a {id: ID(a), .*} AS autor ORDER BY a.nome ASC`);
-  const autores = res.map((row) => row.autor);
+  const autores = await read<Autor>(`
+  MATCH (m:Material)-[:POSSUI_AUTOR]->(autor:Autor) RETURN ID(autor) as id, autor.nome AS nome, COUNT (m.nome) AS nMateriais ORDER BY nome ASC`);
   return autores;
 }
 
@@ -24,7 +19,8 @@ export default async function MateriasPage() {
         {autores.map((autor) => (
           <li key={autor.id.toString()}>
             <Link href={`/materiais/autores/${autor.id}`}>
-              {autor.nome}
+              {autor.nome} | Quantidade de materiais:{" "}
+              {autor.nMateriais.toString()}
             </Link>
           </li>
         ))}

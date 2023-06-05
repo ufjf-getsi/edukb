@@ -15,6 +15,7 @@ export interface Area {
 export interface Autor {
   id: Number;
   nome: string;
+  nMateriais: Number;
 }
 export interface PalavraChave {
   id: Number;
