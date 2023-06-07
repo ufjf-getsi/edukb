@@ -2,14 +2,11 @@ import { read } from "../../../lib/neo4j";
 import Link from "next/link";
 import { Material } from "../../../types";
 export const dynamic='force-dynamic' //Força a página ser dinâmica 
-interface  MaterialRecord {
-  material: Material;
-}
+
 //Busca as materiais que estão no banco
 async function getMaterias() {
-  const res = await read<MaterialRecord >(`
-  MATCH (m:Material) RETURN m {id: ID(m), .*} AS material ORDER BY m.nome ASC`);
-  const materiais = res.map((row) => row.material);
+  const materiais = await read<Material >(`
+  MATCH (m:Material) RETURN ID(m) AS id, m.nome AS nome ORDER BY nome ASC`);
   return materiais;
 }
 
