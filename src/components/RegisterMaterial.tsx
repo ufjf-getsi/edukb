@@ -72,11 +72,12 @@ export default function RegisterMaterial() {
     //Direcionamento de cadastro  
     if (typeof materiais !== 'undefined' && materiais!=null) {
       event.target.reset();
-      alert("Material cadastrado");
+      alert("Material cadastrado!");
+      router.refresh();
       materiais.forEach((e)=>(router.push(`/materiais/${e.id.toString()}`)));
     }
     else{
-      alert("Erro no cadastro do material");
+      alert("Erro no cadastro do material!");
       setNomeMaterial("");
       setArea("");
       setDescricao("");

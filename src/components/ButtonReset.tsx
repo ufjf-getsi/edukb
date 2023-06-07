@@ -12,6 +12,7 @@ export default function ButtonReset() {
   //Envia as informação para o neo4j
   const reset = async (event: any) => {
     const res = await write<MaterialRecord>(`MATCH (m) DETACH DELETE m`);
+    alert("Banco resetado!");
     router.refresh();
   };
   return <button onClick={reset}>Resetar Banco</button>;
