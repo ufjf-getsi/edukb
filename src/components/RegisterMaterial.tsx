@@ -4,9 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Material } from "../../types";
 
-interface MaterialRecord {
-  material: Material;
-}
 export default function RegisterMaterial() {
   const [nomeMaterial, setNomeMaterial] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -22,7 +19,6 @@ export default function RegisterMaterial() {
   //Envia as informação para o neo4j
   const resgister = async (event: any) => {
     event.preventDefault();
-
     //Separa os autores
     const autores = nomeAutores.split(",").map((autor) => autor.trim());
 
@@ -67,22 +63,32 @@ export default function RegisterMaterial() {
             MERGE (m1)-[: POSSUI_PALAVRAS_CHAVE]->(ch${i++})
         `)
     );
+    //Adiciona um retorno na query 
+    query+=`RETURN ID(m1) AS id;`;
 
     //Realiza o cadastro do material
-    const res = await write<MaterialRecord>(query);
-    setNomeMaterial("");
-    setArea("");
-    setDescricao("");
-    setNomeAutor("");
-    setIdioma("");
-    setTipoLicenca("");
-    setTipoConteudo("");
-    setArea("");
-    setUrl("");
-    setPalavrasChave("");
-    //event.target.selectedTipoConteudo.selectedIndex = 0;
-    event.target.reset();
-    router.refresh();
+    const materiais = await write<Material>(query);
+
+    //Direcionamento de cadastro  
+    if (typeof materiais !== 'undefined' && materiais!=null) {
+      event.target.reset();
+      alert("Material cadastrado");
+      materiais.forEach((e)=>(router.push(`/materiais/${e.id.toString()}`)));
+    }
+    else{
+      alert("Erro no cadastro do material");
+      setNomeMaterial("");
+      setArea("");
+      setDescricao("");
+      setNomeAutor("");
+      setIdioma("");
+      setTipoLicenca("");
+      setTipoConteudo("");
+      setArea("");
+      setUrl("");
+      setPalavrasChave("");
+      event.target.reset();
+    }
   };
   return (
     //Formulario para cadastrar um material
