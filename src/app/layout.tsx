@@ -21,6 +21,7 @@ export default function RootLayout({
             <Link href="/materiais">Materiais</Link>
             <Link href="/materiais/autores">Por autor</Link>
             <Link href="/materiais/areas">Por área</Link>
+            <Link href="/materiais/downloads">Por download</Link>
           </nav>
           {children}
         </main>

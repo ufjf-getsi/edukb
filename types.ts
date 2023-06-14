@@ -6,6 +6,7 @@ export interface Material {
   idioma: string;
   licença_creative_commons: string;
   url: string;
+  n_downloads: number;
 }
 export interface Area {
   id: number;

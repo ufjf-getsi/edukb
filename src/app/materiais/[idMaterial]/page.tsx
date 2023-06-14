@@ -1,5 +1,6 @@
 import { read } from "@/../lib/neo4j";
 import { Material, Area, Autor, PalavraChave, TipoConteudo } from "@/../types";
+import ButtonDownload from "@/components/ButtonDownload";
 
 interface MaterialRecord {
   material: Material;
@@ -60,6 +61,7 @@ export default async function MaterialPage({ params }: any) {
           <h5>URL: {material?.material.url}</h5>
         </>
       ))}
+      <ButtonDownload id = {params.idMaterial}/>
     </div>
   );
 }
