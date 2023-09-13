@@ -58,6 +58,7 @@ export default async function MaterialPage({ params }: any) {
             Lincença Creative Commons:{" "}
             {material?.material.licença_creative_commons}
           </h5>
+          <h5>Quantidade de Downloads: {material?.material.n_downloads.toString()}</h5>
           <h5>URL: {material?.material.url}</h5>
         </>
       ))}
